@@ -1,6 +1,7 @@
 from flask import Flask, request, jsonify
 from geopy.distance import geodesic
 from flask_cors import CORS
+import os
 
 app = Flask(__name__)
 CORS(app)
@@ -20,5 +21,6 @@ def check_proximity():
         'within_range': is_within_range
     })
 
-if __name__ == '__main__':
-    app.run(debug=True)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 5000))        # Use the port Render provides
+    app.run(debug=True, host="0.0.0.0", port=port)  # Listen on all interfaces
